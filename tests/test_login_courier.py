@@ -49,13 +49,15 @@ class TestLoginCourier:
 
     @allure.title('Проверка авторизации несуществующего курьера, статус код 404')
     @allure.step('Отправляем POST запрос на авторизацию несуществующего курьера')
-    def test_login_nonexistent_courier_status_code(self, courier_data):
+    def test_login_nonexistent_courier_status_code(self):
+        courier_data = helpers.create_courier_data()
         response = helpers.login_courier(courier_data['login'], courier_data['password'])
         assert response.status_code == 404
 
     @allure.title('Проверка авторизации несуществующего курьера, в ответе "message": "Учетная запись не найдена"')
     @allure.step('Отправляем POST запрос на авторизацию несуществующего курьера')
-    def test_login_nonexistent_courier_message(self, courier_data):
+    def test_login_nonexistent_courier_message(self):
+        courier_data = helpers.create_courier_data()
         response = helpers.login_courier(courier_data['login'], courier_data['password'])
         assert response.json()["message"] == "Учетная запись не найдена"
 
